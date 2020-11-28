@@ -1,11 +1,11 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-import code.base.base_errors as errors
-from code.config import DATABASE
+import app.base.base_errors as errors
+from app.config import DATABASE
 
 
-class sql:
+class Sql:
     """
     Базовый класс для работы с БД
     """
