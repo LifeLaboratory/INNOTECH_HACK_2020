@@ -16,8 +16,7 @@ WHERE surname='{surname}' AND name='{name}' AND patronymic='{patronymic}'
 
 SELECT_COUNT_USERS = """
 SELECT count(*)
-FROM public.client
-GROUP BY id;
+FROM public.client;
 """
 
 INSERT_CLIENT = """
