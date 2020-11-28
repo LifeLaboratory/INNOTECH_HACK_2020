@@ -3,6 +3,6 @@ from flask_restplus import fields
 
 egrul_info_request = ns_api.model('EgrulInfo', {
     'query': fields.String('Иван'),
-    'nameEq': fields.Boolean('on'),
+    'nameEq': fields.String('on'),
     'region': fields.String('03,02,99')
 })
