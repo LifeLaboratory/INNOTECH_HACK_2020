@@ -10,6 +10,8 @@ DATABASE = {
 
 REPO_NAME = 'INNOTECH_HACK_2020'
 HOST = '46.148.224.125'
+VK_LOGIN = ''
+VK_PASSWORD = ''
 
 
 class Config:
