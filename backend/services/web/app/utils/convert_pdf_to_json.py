@@ -31,13 +31,13 @@ def parse_ogrn(pdf_file):
                 elif "пол" == f:
                     json_ogrn["gender"] = tabl[2]
                 elif "огрнип" == f:
-                    json_ogrn["orgn"] = tabl[2]
+                    json_ogrn["ogrn"] = tabl[2]
                 elif "дата регистрации" == f:
-                    json_ogrn["orgn_reg"] = tabl[2]
+                    json_ogrn["ogrn_reg"] = tabl[2]
                 elif "огрн" == f:
-                    json_ogrn["orgn"] = tabl[2]
+                    json_ogrn["ogrn"] = tabl[2]
                 elif "дата присвоения огрн" == f:
-                    json_ogrn["orgn_reg"] = tabl[2]
+                    json_ogrn["ogrn_reg"] = tabl[2]
                 elif "гражданство" == f:
                     json_ogrn["nationality"] = tabl[2]
                 elif "гражданство" == f:
