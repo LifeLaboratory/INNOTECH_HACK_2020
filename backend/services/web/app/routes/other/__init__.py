@@ -1,6 +1,4 @@
 from flask_restplus import Resource, reqparse
-from app.routes.egrul_nalog.provider import Provider
-from app.routes.egrul_nalog.models import *
 from app import ns_api
 from werkzeug.datastructures import FileStorage
 import secrets
