@@ -29,7 +29,7 @@ def parse_ogrn(pdf_file):
                 elif "отчество" == f:
                     json_ogrn["patronymic"] = tabl[2]
                 elif "пол" == f:
-                    json_ogrn["patronymic"] = tabl[2]
+                    json_ogrn["gender"] = tabl[2]
                 elif "огрнип" == f:
                     json_ogrn["orgn"] = tabl[2]
                 elif "дата регистрации" == f:
