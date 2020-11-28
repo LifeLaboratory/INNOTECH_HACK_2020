@@ -17,8 +17,11 @@ class Image(Resource):
         if not args.get('image'):
             return {'status': 'No image field'}, 400
 
-        print(args.get('image').mimetype)
-        # args.get('image').save('/app/static', )
+        extension = args.get('image').mimetype.split('/')[-1]
+        if extension not in ('png', 'jpg', 'jpeg'):
+            return {'status': 'Missing mimetype'}, 400
+        
+        args.get('image').save(f'/app/static/{secrets}.{extension}')
 
         # with open(f'/web/app/static/')
         return {'status': 'ok', 'message': "image was uploaded"}
