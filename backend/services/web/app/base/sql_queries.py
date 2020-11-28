@@ -1,7 +1,12 @@
-SELECT_ORGANIZATION_BY_CLIENT = """
+SELECT_ORGANIZATIONS_BY_CLIENT = """
 SELECT * FROM public.organization o
 LEFT JOIN public.link_client_organization l ON (o.id = l.organization_id)
-WHERE l.client_id = {client_id}
+WHERE l.client_id = {client_id};
+"""
+
+SELECT_ORGANIZATION_BY_INN = """
+SELECT id FROM public.organization
+WHERE inn_org = {inn_org};
 """
 
 SELECT_CLIENT = """
@@ -11,7 +16,7 @@ WHERE id={id};
 
 SELECT_TERRORIST = """
 SELECT * FROM public.terrorists
-WHERE surname='{surname}' AND name='{name}' AND patronymic='{patronymic}'
+WHERE surname='{surname}' AND name='{name}' AND patronymic='{patronymic}';
 """
 
 SELECT_COUNT_USERS = """
