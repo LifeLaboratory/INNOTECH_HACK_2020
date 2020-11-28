@@ -21,7 +21,6 @@ class Image(Resource):
         if extension not in ('png', 'jpg', 'jpeg'):
             return {'status': 'Missing mimetype'}, 400
         
-        args.get('image').save(f'/app/static/{secrets.token_hex(15)}.{extension}')
+        args.get('image').save(f'/web/app/static/{secrets.token_hex(15)}.{extension}')
 
-        # with open(f'/web/app/static/')
         return {'status': 'ok', 'message': "image was uploaded"}
