@@ -10,5 +10,5 @@ api = Api(app=server)
 
 ns_api = api.namespace('api')
 
-import app.routes.test
+# import app.routes.test
 import app.routes.git
