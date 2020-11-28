@@ -1,5 +1,4 @@
 import os
-import secrets
 
 DATABASE = {
     "dbname": os.environ.get('POSTGRES_DB'),
