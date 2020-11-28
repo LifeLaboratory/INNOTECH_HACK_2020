@@ -7,3 +7,4 @@ requests
 uwsgi
 pdf2docx==0.4.6
 beautifulsoup4==4.8.2
+vk_api

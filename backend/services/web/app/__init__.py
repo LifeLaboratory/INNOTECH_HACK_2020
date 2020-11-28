@@ -13,3 +13,4 @@ ns_api = api.namespace('api')
 # import app.routes.test
 import app.routes.git
 import app.routes.egrul_nalog
+import app.routes.social
