@@ -1,0 +1,45 @@
+version: "2.4"
+services:
+    backend:
+        container_name: web
+        build: ./services/web
+        restart: always
+        depends_on:
+          - postgres
+          - redis
+        ports:
+            - 5000:5000
+        volumes:
+            - ./services/web:/web:rw
+            - ./daemons/git-webhook/sockets:/tmp/sockets:rw
+
+    postgres:
+        container_name: postgres
+        image: postgres:13.1
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+          POSTGRES_PASSWORD: PINLOX!@#
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+
+    nginx:
+        image: nginx
+        container_name: nginx
+        build: ./services/nginx
+        restart: always
+        ports:
+            - 80:80
+        depends_on:
+            - backend
+        volumes:
+            - ./services/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:rw
+            - ./services/nginx/logs/access.log:/var/log/nginx/access.log
+            - ./services/nginx/logs/error.log:/var/log/nginx/error.log
+            
+    redis:
+        image: redis
+        container_name: redis
+        ports:
+            - 6379:6379

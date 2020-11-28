@@ -1,0 +1,7 @@
+flask
+flask-restplus
+Werkzeug==0.16.1
+flask-cors
+psycopg2-binary
+requests
+uwsgi
