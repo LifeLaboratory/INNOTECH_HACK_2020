@@ -3,7 +3,7 @@ from app.routes.egrul_nalog.provider import Provider
 from app.routes.egrul_nalog.models import *
 from app import ns_api
 from werkzeug.datastructures import FileStorage
-
+import secrets
 
 @ns_api.route('/upload_image')
 class Image(Resource):
@@ -16,6 +16,9 @@ class Image(Resource):
 
         if not args.get('image'):
             return {'status': 'No image field'}, 400
+
+        print(args.get('image').mimetype)
+        # args.get('image').save('/app/static', )
 
         # with open(f'/web/app/static/')
         return {'status': 'ok', 'message': "image was uploaded"}
