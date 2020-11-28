@@ -1,87 +1,39 @@
-SQL_SELECT_INFO_CLIENT = """
-SELECT *
-FROM raifhack.clients
-WHERE id={id}
+SELECT_ORGANIZATION_BY_CLIENT = """
+SELECT * FROM public.organization o
+LEFT JOIN public.link_client_organization l ON (o.id = l.organization_id)
+WHERE l.client_id = {client_id}
 """
 
-SQL_SELECT_INFO_CLIENTS = """
-SELECT *
-FROM raifhack.clients
+SELECT_CLIENT = """
+SELECT * FROM public.client
+WHERE id={id};
 """
 
-SQL_SELECT_INFO_COURIER = """
-SELECT *
-FROM raifhack.couriers
-WHERE id={id}
+SELECT_TERRORIST = """
+SELECT * FROM public.terrorists
+WHERE surname='{surname}' AND name='{name}' AND patronymic='{patronymic}'
 """
 
-SQL_SELECT_INFO_COURIERS = """
-SELECT *
-FROM raifhack.couriers
-ORDER BY id
+SELECT_COUNT_USERS = """
+SELECT count(*)
+FROM public.client
+GROUP BY id;
 """
 
-SQL_SELECT_ORDERS_COURIER = """
-SELECT *
-FROM raifhack.orders
-WHERE number_courier={id}
-ORDER BY id DESC
+INSERT_CLIENT = """
+INSERT INTO public.client (surname, name, patronymic, nationality, country, inn, inn_reg)
+VALUES ('{surname}', '{name}', '{patronymic}', '{nationality}', '{country}', {inn}, '{inn_reg}')
+RETURNING id;
 """
 
-SQL_SELECT_COMPANY_INFO = """
-SELECT *
-FROM raifhack.companies
+INSERT_ORGANIZATION = """
+INSERT INTO public.organization (name_org, url_org, status_org, leader_org, date_reg_org, inn_org)
+VALUES ('{name_org}', '{url_org}', '{status_org}', '{leader_org}', '{date_reg_org}', {inn_org})
+RETURNING id;
 """
 
-SQL_SELECT_INFO_COURIER_IN_COMPANY = """
-SELECT *
-FROM raifhack.couriers
-WHERE num_company={id}
-ORDER BY id
-"""
-
-SQL_SELECT_ALL_COURIERS = """
-SELECT *
-FROM raifhack.couriers
-"""
-
-SQL_SELECT_ACTIVE_ORDERS = """
-SELECT *
-FROM raifhack.orders AS ord
-LEFT JOIN raifhack.couriers AS co ON (co.id = ord.number_courier)
-LEFT JOIN raifhack.clients AS cl ON (cl.id = ord.number_client)
-WHERE ord.status_order is NULL
-"""
-
-SQL_UPDATE_COURIER_GPS = """
-UPDATE raifhack.couriers
-SET lat={lat}, lon={lon}
-WHERE id={id}
-RETURNING TRUE 
-"""
-
-SQL_INSERT_ORDER_CREATE = """
-INSERT INTO raifhack.orders (cost, number_client, address, qr_code, url_payload, qr_id, number_courier)
-VALUES ({cost}, {number_client}, '{address}', '{qr_code}', '{url_payload}', '{qr_id}', {number_courier})
-RETURNING id
-"""
-
-SQL_SELECT_ORDER_STATUS = """
-SELECT *
-FROM raifhack.orders
-WHERE paymentstatus != 'ACWP' or paymentstatus is NULL
-"""
-
-SQL_UPDATE_OREDER_STATUS = """
-UPDATE raifhack.orders
-SET paymentstatus = '{pays}', status_order = TRUE 
-WHERE id = {id}
-RETURNING number_courier
-"""
-
-SQL_UPDATE_STATUS_COURIER = """
-UPDATE raifhack.couriers
-SET status = {status}
-WHERE id = {id}
-RETURNING id
+INSERT_LINK_CLIENT_ORGANIZATION = """
+INSERT INTO public.link_client_organization (client_id, orgabization_id, status_client)
+VALUES ({client_id}, {organization_id}, '{status_client}')
+RETURNING id;
 """
