@@ -69,6 +69,10 @@ class EgrulNalogClient:
             return
 
         result = self._search_result(info_id)
+
+        if not result:
+            return
+
         company_token = result.get('t')
         ogrn = result.get('o')
         inn = result.get('i')
@@ -110,5 +114,5 @@ class EgrulNalogClient:
 
 if __name__ == '__main__':
     client = EgrulNalogClient()
-    client.download('317470400051557', [78], True)
+    client.download('31747040005155', [78], True)
 
