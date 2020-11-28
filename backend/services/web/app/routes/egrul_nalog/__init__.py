@@ -23,15 +23,33 @@ api.payload - прочитать json из запроса. Работает то
 '''
 
 
-@ns_api.route('/get_egrul_info')
-class Users(Resource):
+def get_socnet_info():
+    return {'asd': 'asd'}
+
+
+def serialize():
+    return {'key': 'a'}
+
+def parser():
+    return {}
+
+
+@ns_api.route('/add_organizations', doc={'deprecated': True})
+class EgrulInfo(Resource):
     # @ns_api.marshal_with(egrul_info_response)
     @ns_api.expect(egrul_info_request)
-    def get(self):
+    def post(self):
         """Предоставление сведений из ЕГРЮЛ/ЕГРИП"""
         parser = reqparse.RequestParser()
-        parser.add_argument('query', help='Укажите ИНН или ОГРН (ОГРНИП) или наименование ЮЛ, ФИО ИП')
-        parser.add_argument('name', help='Искать по точному соответствию наименования юридического лица или фамилии, имени и отчеству')
-        parser.add_argument('region', help='Выбрать регионы(список)')
+        parser.add_argument('vk_link', help='ссылка ВК')
+        args = parser.parse_args()
 
+        # info = get_socnet_info(**args)  # Возврат данных из соц.сети
+        #
+        # data = serialize(info)  # Приведение к формату
+        # client = EgrulNalogClient()
+        # file_path = client.download(**data)
+        #
+        # if not file_path:
+        #     return {'status': 'error'}
         return {'status': 'ok'}

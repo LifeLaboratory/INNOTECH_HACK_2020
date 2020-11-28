@@ -1,6 +1,6 @@
 import requests as req
 import urllib3
-
+import traceback
 urllib3.disable_warnings()
 
 
@@ -14,9 +14,14 @@ class EgrulNalogClient:
 
     @staticmethod
     def _write_pdf(pdf, filename):
-        import os
-        with open(f'../../data/{filename}.pdf', 'wb') as f:
-            f.write(pdf)
+        try:
+            with open(f'app/data/{filename}.pdf', 'wb') as f:
+                f.write(pdf)
+                return filename
+        except Exception:
+            traceback.print_exc()
+            return
+
 
     @staticmethod
     def _parse_get_params(params):
@@ -57,14 +62,14 @@ class EgrulNalogClient:
     def _vyp_download(self, token):
         return self._make_request('GET', f'/vyp-download/{token}').text.encode()
 
-    def download(self, query: str, regions: list, full_eq: bool = False):
+    def download(self, **kwargs):
         """
         vyp-request
         vyp-status
         vyp-download
         """
 
-        info_id = self._search_info(query, regions, full_eq)
+        info_id = self._search_info(**kwargs)
         if not info_id:
             return
 
@@ -85,18 +90,18 @@ class EgrulNalogClient:
 
         file = self._vyp_download(token)
         filename = f'{ogrn}_{inn}'
-        self._write_pdf(file, filename)
+        return self._write_pdf(file, filename)
 
-    def _search_info(self, query: str, regions: list, full_eq: bool = False):
-        full_eq = 'on' if full_eq else 'off'
-        regions = '%2c'.join([str(x) if len(str(x)) == 2 else '0' + str(x) for x in regions])
-        data = {
-            'query': query,
-            'nameEq': full_eq,
-            'region': regions,
-        }
+    def _search_info(self, **kwargs):
+        # full_eq = 'on' if full_eq else 'off'
+        # regions = '%2c'.join([str(x) if len(str(x)) == 2 else '0' + str(x) for x in regions])
+        # data = {
+        #     'query': query,
+        #     'nameEq': full_eq,
+        #     'region': regions,
+        # }
 
-        info = self._make_request('POST', '/', data=data).json()
+        info = self._make_request('POST', '/', data=kwargs).json()
 
         if not info:
             print('Не могу получить сведения о компаниях')
@@ -113,6 +118,8 @@ class EgrulNalogClient:
 
 
 if __name__ == '__main__':
-    client = EgrulNalogClient()
-    client.download('31747040005155', [78], True)
-
+    # client = EgrulNalogClient()
+    # client.download('31747040005155', [78], True)
+    a = '{"suggestions":[{"data":{"uri":"773370633582-varlamov-0362","state":{"status":"ACTIVE","code":null,"actuality_date":1577836800000,"registration_date":1360886400000,"liquidation_date":null},"inn":"773370633582","ogrn":"313774604600362","name":{"full_with_opf":"\u0418\u043d\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u0440\u0435\u0434\u043f\u0440\u0438\u043d\u0438\u043c\u0430\u0442\u0435\u043b\u044c \u0412\u0430\u0440\u043b\u0430\u043c\u043e\u0432 \u0418\u043b\u044c\u044f \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440\u043e\u0432\u0438\u0447","short_with_opf":"\u0418\u041f \u0412\u0430\u0440\u043b\u0430\u043c\u043e\u0432 \u0418\u043b\u044c\u044f \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440\u043e\u0432\u0438\u0447","latin":null,"full":"\u0412\u0430\u0440\u043b\u0430\u043c\u043e\u0432 \u0418\u043b\u044c\u044f \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440\u043e\u0432\u0438\u0447","short":null},"address":{"value":"\u0433 \u041c\u043e\u0441\u043a\u0432\u0430","data":{"region_with_type":"\u0433 \u041c\u043e\u0441\u043a\u0432\u0430"}}}}]}'
+    import json
+    print(json.loads(a))
