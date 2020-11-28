@@ -2,7 +2,6 @@ from flask_restplus import Resource, reqparse
 from app.routes.ogranization.provider import Provider
 from app.routes.ogranization.models import *
 from app import ns_api
-from app.utils.clients.egrul_nalog import EgrulNalogClient
 
 """
 model = api.model('Class', {'status': fields.String('Ok')})
