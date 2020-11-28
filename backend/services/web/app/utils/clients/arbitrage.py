@@ -34,14 +34,12 @@ class ArbitrageClient:
         if cookies:
             self.session.cookies.update(cookies)
 
-        print(self.session.cookies)
-        
         kwargs.update({'verify': False})
 
         response = self.session.request(method, self._get_url(endpoint), **kwargs)
         return response
 
-    def search_instances(self, **kwargs):
+    def search_instances(self):
         data = {
             "Page": 1,
             "Count": 25,

@@ -1,6 +1,6 @@
 from flask_restplus import Resource, reqparse
-from app.routes.egrul_nalog.provider import Provider
-from app.routes.egrul_nalog.models import *
+from app.routes.ogranization.provider import Provider
+from app.routes.ogranization.models import *
 from app import ns_api
 from app.utils.clients.egrul_nalog import EgrulNalogClient
 
@@ -35,15 +35,16 @@ def parser():
 
 
 @ns_api.route('/add_organizations', doc={'deprecated': True})
-class EgrulInfo(Resource):
+class Organization(Resource):
     # @ns_api.marshal_with(egrul_info_response)
-    @ns_api.expect(egrul_info_request)
+    @ns_api.expect(vk_link_request)
     def post(self):
-        """Предоставление сведений из ЕГРЮЛ/ЕГРИП"""
+        """Спарсить данные организаций"""
         parser = reqparse.RequestParser()
         parser.add_argument('vk_link', help='ссылка ВК')
         args = parser.parse_args()
 
+        print(args)
         # info = get_socnet_info(**args)  # Возврат данных из соц.сети
         #
         # data = serialize(info)  # Приведение к формату

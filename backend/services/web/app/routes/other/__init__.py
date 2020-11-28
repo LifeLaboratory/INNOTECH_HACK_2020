@@ -5,6 +5,7 @@ from app import ns_api
 from werkzeug.datastructures import FileStorage
 import secrets
 
+
 @ns_api.route('/upload_image')
 class Image(Resource):
     def post(self):
@@ -12,7 +13,6 @@ class Image(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('image', type=FileStorage, location='files', required=True)
         args = parser.parse_args()
-        print(args)
 
         if not args.get('image'):
             return {'status': 'No image field'}, 400
