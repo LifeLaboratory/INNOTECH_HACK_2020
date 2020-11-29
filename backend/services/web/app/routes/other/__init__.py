@@ -2,6 +2,7 @@ from flask_restplus import Resource, reqparse
 from app import ns_api
 from werkzeug.datastructures import FileStorage
 import secrets
+from app.utils.sql_function import get_all_client_info
 
 
 @ns_api.route('/upload_image')
@@ -20,5 +21,6 @@ class Image(Resource):
             return {'status': 'Missing mimetype'}, 400
         
         args.get('image').save(f'/web/app/static/{secrets.token_hex(15)}.{extension}')
-
-        return {'status': 'ok', 'message': "image was uploaded"}
+        answer = get_all_client_info(1)
+        #return {'status': 'ok', 'message': "image was uploaded"}
+        return answer

@@ -4,6 +4,12 @@ LEFT JOIN public.link_client_organization l ON (o.organization_id = l.organizati
 WHERE l.client_id = {client_id};
 """
 
+SELECT_INTERESTS_BY_CLIENT = """
+SELECT * FROM public.interests i
+LEFT JOIN public.link_client_interests l ON (i.interest_id = l.interest_id)
+WHERE l.client_id = {client_id};
+"""
+
 SELECT_ORGANIZATION_BY_INN = """
 SELECT organization_id FROM public.organization
 WHERE organization_inn = {organization_inn};

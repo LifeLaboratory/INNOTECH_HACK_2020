@@ -18,6 +18,19 @@ def add_organization(params):
     return answer
 
 
+def get_all_client_info(client_id):
+    client_info = base_sql.Sql.exec(sql_queries.SELECT_CLIENT.format(client_id=client_id))
+    if client_info == [] or client_info is None:
+        return None
+    organizations = base_sql.Sql.exec(sql_queries.SELECT_ORGANIZATIONS_BY_CLIENT.format(client_id=client_id))
+    if organizations != [] and organizations is not None:
+        client_info["organizations"] = organizations
+    interests = base_sql.Sql.exec(sql_queries.SELECT_INTERESTS_BY_CLIENT.format(client_id=client_id))
+    if interests != [] and interests is not None:
+        client_info["interests"] = interests
+    return client_info
+
+
 def add_organiztion_by_inn_fl(inn):
     answer = pee.parse_egrul_egrip(inn)
     if "list_ip" in answer.keys():
