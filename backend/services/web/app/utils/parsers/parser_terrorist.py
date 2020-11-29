@@ -115,8 +115,8 @@ def check_on_terror(surname: str, name: str, patr: str, date: str) -> dict:
     and patronymic = '{}'
     """.format(date, name, surname, patr)
 
-    #data = base_sql.Sql.exec(sql_query)
-    data = sql_execute(sql_query)
+    data = base_sql.Sql.exec(sql_query)
+    #data = sql_execute(sql_query)
     print(data)
     if data:
         res = dict(data[0])
