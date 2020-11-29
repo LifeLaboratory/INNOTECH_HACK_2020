@@ -24,7 +24,7 @@ services:
             - POSTGRES_USER=postgres
             - POSTGRES_DB=postgres
         volumes:
-            - ./services/web/app/pg_dump/create_table.sql:/docker-entrypoint-initdb.d
+            - ./services/web/app/pg_dump/create_table.sql:/docker-entrypoint-initdb.d/init.sql
 
     nginx:
         image: nginx
