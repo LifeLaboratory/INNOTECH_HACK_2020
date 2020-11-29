@@ -24,11 +24,11 @@ def get_all_client_info(client_id):
         return None
     organizations = base_sql.Sql.exec(sql_queries.SELECT_ORGANIZATIONS_BY_CLIENT.format(client_id=client_id))
     if organizations != [] and organizations is not None:
-        client_info["organizations"] = organizations
+        client_info[0]["organizations"] = organizations
     interests = base_sql.Sql.exec(sql_queries.SELECT_INTERESTS_BY_CLIENT.format(client_id=client_id))
     if interests != [] and interests is not None:
-        client_info["interests"] = interests
-    return client_info
+        client_info[0]["interests"] = interests
+    return client_info[0]
 
 
 def add_organiztion_by_inn_fl(inn):
@@ -49,3 +49,5 @@ def add_organiztion_by_inn_fl(inn):
             i["status_client"] = "list_founder"
             add_organization(i)
     return True
+
+print(get_all_client_info(1))
