@@ -62,45 +62,29 @@ class EgrulNalogClient:
     def _vyp_download(self, token):
         return self._make_request('GET', f'/vyp-download/{token}').text.encode()
 
-    def download(self, **kwargs):
+    def get_inn(self, query: str, nameEq: str) -> int:
         """
-        vyp-request
-        vyp-status
-        vyp-download
+            example:
+            :param query: Укажите ИНН или ОГРН (ОГРНИП) или наименование ЮЛ, ФИО ИП
+            :param nameEq: Принимает "on" или "off"
+            :param region: Номер региона "01" или "99" или "01%2c99"
         """
+        data = {
+            'query': query,
+            'nameEq': nameEq,
+        }
 
-        info_id = self._search_info(**kwargs)
+        info_id = self._search_info(**data)
         if not info_id:
             return
 
         result = self._search_result(info_id)
-
         if not result:
             return
 
-        company_token = result.get('t')
-        ogrn = result.get('o')
-        inn = result.get('i')
-
-        token = self._vyp_request(company_token)
-        response = self._vyp_status(token)
-
-        if response.get('status') != 'ready':
-            return
-
-        file = self._vyp_download(token)
-        filename = f'{ogrn}_{inn}'
-        return self._write_pdf(file, filename)
+        return int(result.get('i'))
 
     def _search_info(self, **kwargs):
-        # full_eq = 'on' if full_eq else 'off'
-        # regions = '%2c'.join([str(x) if len(str(x)) == 2 else '0' + str(x) for x in regions])
-        # data = {
-        #     'query': query,
-        #     'nameEq': full_eq,
-        #     'region': regions,
-        # }
-
         info = self._make_request('POST', '/', data=kwargs).json()
 
         if not info:
@@ -118,8 +102,5 @@ class EgrulNalogClient:
 
 
 if __name__ == '__main__':
-    # client = EgrulNalogClient()
-    # client.download('31747040005155', [78], True)
-    a = '{"suggestions":[{"data":{"uri":"773370633582-varlamov-0362","state":{"status":"ACTIVE","code":null,"actuality_date":1577836800000,"registration_date":1360886400000,"liquidation_date":null},"inn":"773370633582","ogrn":"313774604600362","name":{"full_with_opf":"\u0418\u043d\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u0440\u0435\u0434\u043f\u0440\u0438\u043d\u0438\u043c\u0430\u0442\u0435\u043b\u044c \u0412\u0430\u0440\u043b\u0430\u043c\u043e\u0432 \u0418\u043b\u044c\u044f \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440\u043e\u0432\u0438\u0447","short_with_opf":"\u0418\u041f \u0412\u0430\u0440\u043b\u0430\u043c\u043e\u0432 \u0418\u043b\u044c\u044f \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440\u043e\u0432\u0438\u0447","latin":null,"full":"\u0412\u0430\u0440\u043b\u0430\u043c\u043e\u0432 \u0418\u043b\u044c\u044f \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440\u043e\u0432\u0438\u0447","short":null},"address":{"value":"\u0433 \u041c\u043e\u0441\u043a\u0432\u0430","data":{"region_with_type":"\u0433 \u041c\u043e\u0441\u043a\u0432\u0430"}}}}]}'
-    import json
-    print(json.loads(a))
+    client = EgrulNalogClient()
+    client.get_inn('7713065557', "on")
