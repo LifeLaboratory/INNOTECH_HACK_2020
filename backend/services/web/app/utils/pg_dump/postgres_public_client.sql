@@ -1,0 +1,1 @@
+INSERT INTO public.client (client_id, surname, name, patronymic, nationality, country, inn, inn_reg, link_vk, sex, phone, bdate, site, city) VALUES (1, 'Донской', 'Максим', 'Алексеевич', null, null, 541000980840, null, '529085708', 2, 79237750995, null, 'Новосибирск', null);
