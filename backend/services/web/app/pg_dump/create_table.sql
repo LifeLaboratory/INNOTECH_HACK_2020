@@ -1,21 +1,22 @@
 create table client
 (
-	client_id serial not null
-		constraint client_pk
-			primary key,
-	surname text,
-	name text,
-	patronymic text,
-	nationality text,
-	country text,
-	inn bigint,
-	inn_reg date,
-	link_vk text,
-	sex integer,
-	phone bigint,
-	bdate date,
-	site text,
-	city text
+    client_id         serial not null
+        constraint client_pk
+            primary key,
+    surname           text,
+    name              text,
+    patronymic        text,
+    nationality       text,
+    country           text,
+    inn               bigint,
+    inn_reg           date,
+    link_vk           text,
+    sex               integer,
+    phone             bigint,
+    bdate             date,
+    site              text,
+    city              text,
+    link_example_face text
 );
 
 comment on table client is 'Клиенты банка';
