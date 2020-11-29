@@ -102,4 +102,32 @@ create table link_client_organization
 
 alter table link_client_organization owner to postgres;
 
+create table category
+(
+    id         serial not null
+        constraint category_pk
+            primary key,
+    "Название" text
+);
+
+comment on table category is 'Категории клиентов';
+
+alter table category owner to postgres;
+
+create unique index category_id_uindex
+    on category (id);
+
+create table link_client_category
+(
+    id          serial  not null
+        constraint link_client_category_pk
+            primary key,
+    client_id   integer not null,
+    category_id integer not null
+);
+
+alter table link_client_category owner to postgres;
+
+create unique index link_client_category_id_uindex
+    on link_client_category (id);
 
