@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from datetime import datetime
+from app.base import sql_queries, base_sql
 
 
 def sql_execute(sql_give):
@@ -47,7 +48,6 @@ def func_filt(elem):
                 print('ERROR')
                 birthday = ''
 
-
     if l > 2:
         city = elems[-1][:-1]
     if elems[0][0] == '.':
@@ -55,7 +55,7 @@ def func_filt(elem):
     if len(elems[0]) > 3:
         elems[0] = elems[0][:3]
     elif len(elems[0]) == 2:
-        elems[0]+=['']
+        elems[0] += ['']
     res = elems[0] + [birthday, city]
     return res
 
@@ -88,7 +88,6 @@ def insert_into_db():
             sleep(10)
             _id = sql_execute(sql_query)[0]['id']
 
-
         sql_query = """
                 update terrorists set date_birth = NULL where id = {}
                 """.format(_id)
@@ -100,12 +99,42 @@ def insert_into_db():
             sql_execute(sql_query)
 
 
-def check_on_terror(name:str,surname:str, patr:str, date:str) -> bool:
+def check_on_terror(surname: str, name: str, patr: str, date: str) -> dict:
+    """
+    Возвращает None в случае, если не нашел террориста и dict с его данными, если нашел
+    date в формате строки понятной sql (12-31-2020)
+    """
+
+    sql_query = """
+    select *
+    from terrorists
+    where 
+    date_birth = '{}'
+    and name = '{}'
+    and surname = '{}'
+    and patronymic = '{}'
+    """.format(date, name, surname, patr)
+
+    #data = base_sql.Sql.exec(sql_query)
+    data = sql_execute(sql_query)
+    print(data)
+    if data:
+        res = dict(data[0])
+    else:
+        res = None
+
+    return res
+
+
+def update_db():
+    sql_query = """
+               delete from terrorists
+               """
+    sql_execute(sql_query)
+    insert_into_db()
 
 
 if __name__ == '__main__':
-    sql_query = """
-           delete from terrorists
-           """
-    sql_execute(sql_query)
-    insert_into_db()
+    #update_db()
+    res = check_on_terror('АБАЕВ', 'ИДРИС', 'МОВСАРОВИЧ', '01-02-1986')
+    print(res)

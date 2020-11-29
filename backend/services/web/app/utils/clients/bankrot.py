@@ -13,6 +13,5 @@ class BankrotClient:
 
 
 if __name__ == '__main__':
-    client = EgrulNalogClient()
-    client.download('31747040005155', [78], True)
+    client = BankrotClient()
 
