@@ -25,12 +25,6 @@ services:
             - POSTGRES_DB=postgres
         volumes:
             - ./services/web/app/create_table.sql:/docker-entrypoint-initdb.d
-            - ./services/web/app/postgres_public_client.sql:/docker-entrypoint-initdb.d
-            - ./services/web/app/postgres_public_interests.sql:/docker-entrypoint-initdb.d
-            - ./services/web/app/postgres_public_link_client_interest.sql:/docker-entrypoint-initdb.d
-            - ./services/web/app/postgres_public_link_client_organization.sql:/docker-entrypoint-initdb.d
-            - ./services/web/app/postgres_public_organization.sql:/docker-entrypoint-initdb.d
-            - ./services/web/app/postgres_public_terrorists.sql:/docker-entrypoint-initdb.d
 
     nginx:
         image: nginx
