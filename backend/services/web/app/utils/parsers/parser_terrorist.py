@@ -88,15 +88,15 @@ def insert_into_db():
             sleep(10)
             _id = sql_execute(sql_query)[0]['id']
 
-        sql_query = """
-                update terrorists set date_birth = NULL where id = {}
-                """.format(_id)
-        try:
-            sql_execute(sql_query)
-        except:
-            from time import sleep
-            sleep(10)
-            sql_execute(sql_query)
+        # sql_query = """
+        #         update terrorists set date_birth = NULL where id = {}
+        #         """.format(_id)
+        # try:
+        #     sql_execute(sql_query)
+        # except:
+        #     from time import sleep
+        #     sleep(10)
+        #     sql_execute(sql_query)
 
 
 def check_on_terror(surname: str, name: str, patr: str, date: str) -> dict:
