@@ -5,7 +5,7 @@ import secrets
 from app.utils.sql_function import get_all_client_info
 
 
-@ns_api.route('/upload_image')
+@ns_api.route('/upload_image', methods=['POST'])
 class Image(Resource):
     def post(self):
         """Предоставление сведений из ЕГРЮЛ/ЕГРИП"""
