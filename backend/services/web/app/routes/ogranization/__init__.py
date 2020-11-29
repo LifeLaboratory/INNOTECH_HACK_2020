@@ -16,11 +16,6 @@ abort(404) - вернуть ошибку 404.
 api.payload - прочитать json из запроса. Работает только для POST.
 """
 
-'''
-Сделать парсер аргументов
-Писать логи body в access.log
-'''
-
 
 def get_socnet_info():
     return {'asd': 'asd'}
