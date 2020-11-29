@@ -20,6 +20,7 @@ def add_user_for_parse(json):
     params["inn"] = "NULL"
     params["sex"] = ""
     params["site"] = ""
+    params["link_vk"] = json["USER"]["id"]
     if "sex" in json["USER"].keys():
         params["sex"] = json["USER"]["sex"]
     if "site" in json["USER"].keys():
