@@ -6,7 +6,7 @@ WHERE l.client_id = {client_id};
 
 SELECT_INTERESTS_BY_CLIENT = """
 SELECT * FROM public.interests i
-LEFT JOIN public.link_client_interests l ON (i.interest_id = l.interest_id)
+LEFT JOIN public.link_client_interest l ON (i.interest_id = l.interest_id)
 WHERE l.client_id = {client_id};
 """
 
