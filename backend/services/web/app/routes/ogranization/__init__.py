@@ -28,7 +28,7 @@ def parser():
     return {}
 
 
-@ns_api.route('/add_organizations', doc={'deprecated': True}, methods=['POST', 'GET'])
+@ns_api.route('/add_organizations', doc={'deprecated': True}, methods=['POST'])
 class Organization(Resource):
     # @ns_api.marshal_with(egrul_info_response)
     @ns_api.expect(vk_link_request)
@@ -47,7 +47,4 @@ class Organization(Resource):
         #
         # if not file_path:
         #     return {'status': 'error'}
-        return {'status': 'ok'}
-
-    def get(self):
         return {'status': 'ok'}
