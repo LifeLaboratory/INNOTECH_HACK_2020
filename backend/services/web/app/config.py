@@ -1,10 +1,10 @@
 import os
 
 DATABASE = {
-    "dbname": os.environ.get('POSTGRES_DB'),
-    "user": os.environ.get('POSTGRES_USER'),
+    "dbname": "postgres",
+    "user": "postgres",
     "host": 'postgres',
-    "password": os.environ.get('POSTGRES_PASSWORD')
+    "password": "PINLOX!@#"
 }
 
 
@@ -16,3 +16,4 @@ VK_PASSWORD = ''
 
 class Config:
     JSON_AS_ASCII = False
+    CORS_HEADERS = 'Content-Type'

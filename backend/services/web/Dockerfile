@@ -6,6 +6,7 @@ ADD . /web
 
 RUN apt-get update
 RUN apt-get install -y build-essential python3-dev nano lsof
+#cmake libzmq3-dev
 
 RUN pip install -r requirements.txt
 RUN usermod --non-unique --uid 1000 www-data \

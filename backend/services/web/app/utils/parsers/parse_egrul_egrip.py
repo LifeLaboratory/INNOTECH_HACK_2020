@@ -8,13 +8,17 @@ def parse_table_org(answer_table):
     for company in answer_table:
         json_answer = {}
         user_info = company.find_all('td')
-        json_answer["url"] = 'https://zachestnyibiznes.ru' + str(user_info[0]).split('href="')[1].split('"')[
-            0].replace('\n', '').replace('\t', '')
-        json_answer["name"] = user_info[0].span.string.replace('\n', '').replace('\t', '')
-        json_answer["status"] = user_info[1].span.string.replace('\n', '').replace('\t', '')
-        json_answer["inn_org"] = str(user_info[2]).split('>')[1].split('</')[0].replace('\n', '').replace('\t', '')
-        json_answer["leader"] = str(user_info[3]).split('>')[1].split('</')[0].replace('\n', '').replace('\t', '')
-        json_answer["date_reg"] = str(user_info[4]).split('>')[1].split('</')[0].replace('\n', '').replace('\t', '')
+        json_answer["organization_url"] = 'https://zachestnyibiznes.ru' + \
+                                          str(user_info[0]).split('href="')[1].split('"')[0].replace('\n', '').replace(
+                                              '\t', '')
+        json_answer["organization_name"] = user_info[0].span.string.replace('\n', '').replace('\t', '')
+        json_answer["organization_status"] = user_info[1].span.string.replace('\n', '').replace('\t', '')
+        json_answer["organization_inn"] = str(user_info[2]).split('>')[1].split('</')[0].replace('\n', '').replace('\t',
+                                                                                                                   '')
+        json_answer["organization_leader"] = str(user_info[3]).split('>')[1].split('</')[0].replace('\n', '').replace(
+            '\t', '')
+        json_answer["organization_date_reg"] = str(user_info[4]).split('>')[1].split('</')[0].replace('\n', '').replace(
+            '\t', '')
         list.append(json_answer)
     return list
 
@@ -47,7 +51,10 @@ def parse_egrul_egrip(inn):
             lists["list_leader"] = parse_table_org(answer_table[0].find('tbody').find_all('tr'))
         else:
             lists["list_founder"] = parse_table_org(answer_table[0].find('tbody').find_all('tr'))
+    for leader in lists["list_leader"]:
+        if leader in lists["list_founder"]:
+            lists["list_leader"].remove(leader)
     return lists
 
 
-#print(parse_egrul_egrip(773370633582))
+#print(parse_egrul_egrip(541000980840))

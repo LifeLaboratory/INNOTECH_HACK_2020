@@ -1,0 +1,2 @@
+INSERT INTO public.link_client_organization (client_id, organization_id, status_client) VALUES (1, 2, 'list_ip');
+INSERT INTO public.link_client_organization (client_id, organization_id, status_client) VALUES (1, 3, 'list_founder');
