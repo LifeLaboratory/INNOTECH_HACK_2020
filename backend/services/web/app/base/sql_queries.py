@@ -31,8 +31,8 @@ FROM public.client;
 """
 
 INSERT_CLIENT = """
-INSERT INTO public.client (surname, name, patronymic, nationality, country, inn, inn_reg, sex, city, bdate, phone)
-VALUES ('{surname}', '{name}', '{patronymic}', '{nationality}', '{country}', {inn}, '{inn_reg}', {sex}, '{city}', '{bdate}', {phone})
+INSERT INTO public.client (surname, name, patronymic, nationality, country, inn, sex, city, bdate, phone, site)
+VALUES ('{surname}', '{name}', '{patronymic}', '{nationality}', '{country}', {inn}, {sex}, '{city}', '{bdate}', {phone}, '{site}')
 RETURNING client_id;
 """
 
