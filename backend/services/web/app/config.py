@@ -16,3 +16,4 @@ VK_PASSWORD = ''
 
 class Config:
     JSON_AS_ASCII = False
+    CORS_HEADERS = 'Content-Type'
